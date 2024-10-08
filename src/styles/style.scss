@@ -1,0 +1,166 @@
+$primary-color: #FF8303;
+$dark-orange:#A35709;
+$background-color: #1B1A17;
+$text-color: #F0E3CA;
+$task-background: #1F1E1B;
+
+body {
+    margin: 0;
+    font-family: "Roboto-Regular";
+    background-color: $background-color;
+    color: $text-color;
+}
+
+.new-note-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+}
+
+.inputs {
+    display: flex;
+    align-items: flex-start; 
+    width: 100%;
+    justify-content: center; 
+    margin-bottom: 64px; 
+
+    .add-inputs {
+        display: flex;
+        flex-direction: column; 
+        flex: 3;
+
+        input {
+            margin-top: 10px; 
+            padding: 10px;
+            border: 1px solid $primary-color;
+            border-radius: 5px;
+            background-color: $task-background;
+            color: $text-color;
+
+            &:focus {
+                outline: none;
+                background-color:  $background-color;
+            }
+        }
+    }
+
+    .add-note {
+        flex: 1; 
+        display: flex;
+        justify-content: center; 
+
+        .add-button {
+            margin-top: 10px;
+            margin-left: 5px;
+            width: 80px; 
+            height: 80px; 
+            border: 2px solid $primary-color; 
+            background-color: transparent; 
+            color: $primary-color;
+            border-radius: 10px; 
+            font-size: 36px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $task-background;
+            }
+        }
+    }
+}
+
+.divider {
+    height: 2px;
+    width: 128px; 
+    background-color: $primary-color;
+    margin: 10px 0;
+    align-self: center; 
+}
+
+.task-container {
+    width: 100%; 
+}
+
+.task {
+    background-color: $task-background; 
+    border: 2px solid $dark-orange; 
+    border-radius: 10px; 
+    height: 48px; 
+    padding: 10px;
+    margin-bottom: 10px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: $text-color;
+
+    .delete-button {
+        width: 40px; 
+        height: 40px; 
+        border: 2px solid $dark-orange; 
+        border-radius: 5px;
+        background-color: $background-color;
+        color: $primary-color;
+        font-size: 18px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $task-background;
+        }
+    }
+}
+
+#no-tasks {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.modal {
+    display: none; // Скрыто по умолчанию
+    position: fixed;
+    z-index: 1000; // Убедитесь, что окно поверх остальных элементов
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7); // Затемнение фона
+
+    .modal-content {
+        background-color: $background-color; // Цвет фона модального окна
+        color: $text-color; // Цвет текста
+        padding-bottom: 12px;
+        margin: 15% auto;
+        text-align: center;
+        width: 20%; // Ширина модального окна
+
+        .modal-line {
+            width: 100%; // Во всю ширину
+            height: 2px; // Толщина линии
+            background-color: $dark-orange; // Цвет линии
+            margin-top: -20px; 
+        }
+
+        h3 {
+            margin-bottom: 20px; // Отступ между заголовком и кнопками
+        }
+
+        button {
+            background-color: $background-color; // Цвет кнопок
+            color: $text-color; // Цвет текста кнопок
+            border: 2px solid $dark-orange; 
+            border-radius: 5px;
+            padding: 5px 28px; // Отступы внутри кнопок
+            margin: 0 6px; // Отступы между кнопками
+            cursor: pointer; // Указатель при наведении
+
+            &:hover {
+                background-color: $task-background; // Цвет при наведении
+            }
+        }
+    }
+}
