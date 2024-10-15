@@ -5,7 +5,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const deleteModal = document.getElementById('delete-modal');
     const confirmDeleteButton = document.getElementById('confirm-delete');
     const cancelDeleteButton = document.getElementById('cancel-delete');
+    let activeTask = null; // Переменная для хранения активной задачи
     let taskToDelete = null; // Переменная для хранения задачи, которую нужно удалить
+
+    // Функция для создания кнопок
+    function createSpecButtons() {
+        let specButtons = document.createElement('div');
+        specButtons.classList.add('button-container'); 
+
+        // Кнопка Поделиться
+        let shareButton = document.createElement('button');
+        shareButton.innerHTML = '<img src="/src/assets/icons/share.svg" class="icon">';
+        shareButton.classList.add('task-button');
+        specButtons.appendChild(shareButton);
+
+        // Кнопка Информация
+        let infoButton = document.createElement('button');
+        infoButton.innerHTML = '<span>i</span>';
+        infoButton.classList.add('task-button');
+        specButtons.appendChild(infoButton);
+
+        // Кнопка Редактировать
+        let editButton = document.createElement('button');
+        editButton.innerHTML = '<img src="/src/assets/icons/edit.svg" class="icon">';
+        editButton.classList.add('task-button');
+        specButtons.appendChild(editButton);
+
+        return specButtons;
+    }
 
     // Загрузка задач из локального хранилища
     const loadTasks = () => {
@@ -21,23 +48,75 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const taskContent = document.createElement('div');
         const truncatedBody = body.length > 28 ? body.slice(0, 28) + '...' : body;
-        taskContent.innerHTML = `<strong>${title}</strong><br>${truncatedBody}`; // Ограничение по длине
+        taskContent.innerHTML = `<strong>${title}</strong><br>${truncatedBody}`;
 
         const deleteButton = document.createElement('button');
         deleteButton.innerHTML = '×';
         deleteButton.className = 'delete-button';
-        deleteButton.onclick = () => {
+        deleteButton.onclick = (e) => {
+            e.stopPropagation(); // Останавливаем всплытие события
             taskToDelete = taskDiv; // Сохраняем задачу для удаления
             deleteModal.style.display = 'block'; // Показываем модальное окно
         };
 
+        // Создаем контейнер для кнопок
+        const buttonContainer = createSpecButtons(); 
+        buttonContainer.style.display = 'none'; 
+
         taskDiv.appendChild(taskContent);
         taskDiv.appendChild(deleteButton);
-        taskContainer.prepend(taskDiv); // Добавляем задачу в начало списка
+        taskDiv.appendChild(buttonContainer); 
+        taskContainer.prepend(taskDiv); 
+
+        // Логика показа кнопок
+        taskDiv.onclick = (event) => {
+            if (event.target.className !== 'delete-button') {
+                const buttonsVisible = buttonContainer.style.display === 'block';
+
+                // Скрываем кнопки, если они уже видимы
+                if (buttonsVisible) {
+                    buttonContainer.style.display = 'none';
+                    activeTask = null; // Убираем активную задачу
+                    adjustTaskMargins(taskDiv, 0); 
+                } else {
+                    
+                    if (activeTask) {
+                        const previousButtonContainer = activeTask.querySelector('.button-container');
+                        if (previousButtonContainer) {
+                            previousButtonContainer.style.display = 'none';
+                        }
+                        adjustTaskMargins(activeTask, 0); // Убираем отступ у предыдущей задачи
+                    }
+
+                    // Отображаем кнопки под текущей задачей
+                    buttonContainer.style.display = 'block';
+                    activeTask = taskDiv; // Устанавливаем текущую задачу как активную
+                    adjustTaskMargins(taskDiv, 70); // Устанавливаем отступ для активной задачи
+                }
+            }
+        };
 
         checkNoTasks();
     };
 
+    // Функция для настройки отступов между задачами
+    function adjustTaskMargins(currentTask, additionalMargin) {
+        const tasks = document.querySelectorAll(".task");
+        let currentTaskFound = false;
+
+        tasks.forEach(task => {
+            if (currentTaskFound) {
+                task.style.marginTop = `${additionalMargin}px`; // Устанавливаем отступ только для следующей задачи
+                currentTaskFound = false; // Прекращаем поиск после первой найденной задачи
+            } else {
+                task.style.marginTop = '2px'; // Возвращаем стандартный отступ для всех остальных
+            }
+
+            if (task === currentTask) {
+                currentTaskFound = true; // Найдена активная задача
+            }
+        });
+    }
 
     // Проверка наличия задач
     const checkNoTasks = () => {
@@ -91,8 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
         taskToDelete = null; // Сбрасываем переменную
     });
 
-
-    
     // Загрузка задач при загрузке страницы
     loadTasks();
+    checkNoTasks();
 });

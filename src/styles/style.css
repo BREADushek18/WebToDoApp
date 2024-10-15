@@ -72,6 +72,7 @@ body {
 }
 
 .task {
+  position: relative;
   background-color: #1F1E1B;
   border: 2px solid #A35709;
   border-radius: 10px;
@@ -105,24 +106,24 @@ body {
 .modal {
   display: none;
   position: fixed;
-  z-index: 1000;
+  z-index: 10;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  font-size: 18px;
+  font-size: 4vw;
   font-weight: 400;
-  line-height: 18px;
+  line-height: 1.5;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.7);
 }
 .modal .modal-content {
   background-color: #1B1A17;
   color: #F0E3CA;
-  padding-bottom: 12px;
+  padding-bottom: 2%;
   margin: 15% auto;
   text-align: center;
-  width: 20%;
+  width: 50%;
 }
 .modal .modal-content .modal-line {
   width: 100%;
@@ -131,17 +132,49 @@ body {
   margin-top: -20px;
 }
 .modal .modal-content h3 {
-  margin-bottom: 20px;
+  margin-bottom: 5%;
 }
 .modal .modal-content button {
   background-color: #1B1A17;
   color: #F0E3CA;
   border: 2px solid #A35709;
   border-radius: 5px;
-  padding: 5px 28px;
-  margin: 0 6px;
+  padding: 2% 5%;
+  margin: 0 2%;
   cursor: pointer;
 }
 .modal .modal-content button:hover {
   background-color: #1F1E1B;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: transparent;
+  margin-top: 40px;
+  position: absolute;
+  right: 10px;
+  max-width: calc(100% - 20px);
+}
+.button-container .task-button {
+  margin: right;
+  background-color: transparent;
+  border: 2px solid #A35709;
+  color: #F0E3CA;
+  font-size: 28px;
+  cursor: pointer;
+  border-radius: 4px;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-left: 8px;
+}
+.button-container .task-button .task-button:hover {
+  background-color: #1F1E1B;
+}
+.button-container .task-button .icon {
+  width: 20px;
+  height: 20px;
 }/*# sourceMappingURL=style.css.map */
