@@ -279,9 +279,10 @@ body {
   max-width: 600px;
 }
 .share-modal .modal-content button {
-  background: none;
+  background: #1F1E1B;
   border: none;
   cursor: pointer;
+  border-radius: 50%;
   width: 50px;
   height: 50px;
   display: flex;
@@ -291,4 +292,33 @@ body {
 .share-modal .modal-content button img {
   width: 100%;
   height: 100%;
+}
+
+.info-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+.info-modal .modal-content {
+  background-color: #1B1A17;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 400px;
+}
+.info-modal .modal-content .info-gif {
+  max-width: 100%;
+  height: auto;
+}
+.info-modal .modal-content p {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #F0E3CA;
 }/*# sourceMappingURL=style.css.map */

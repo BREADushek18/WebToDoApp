@@ -291,39 +291,72 @@ body {
 .share-modal {
     display: none; // Скрываем модальное окно по умолчанию
     position: fixed;
-    top: 0; // Задаем верхнее положение
+    top: 0; 
     left: 0;
     width: 100%;
-    height: 100%; // Устанавливаем высоту на 100%
-    background-color: rgba(0, 0, 0, 0.7); // Затемнение фона
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.7); 
     justify-content: center;
     align-items: center;
     z-index: 10; 
 
     .modal-content {
-        display: flex; // Используем flexbox для выравнивания кнопок
-        flex-wrap: wrap; // Позволяем кнопкам переноситься
-        justify-content: space-around; // Равномерное распределение кнопок
+        display: flex; 
+        flex-wrap: wrap; 
+        justify-content: space-around; 
         padding: 20px;
         border-radius: 8px;
-        background-color: $background-color; // Цвет фона модального окна
-        width: 90%; // Ширина модального окна
-        max-width: 600px; // Максимальная ширина для больших экранов
+        background-color: $background-color; 
+        width: 90%; 
+        max-width: 600px; 
 
         button {
-            background: none; // Убираем фон кнопок
-            border: none; // Убираем границу
-            cursor: pointer; // Указатель при наведении
-            width: 50px; // Ширина кнопки
-            height: 50px; // Высота кнопки
-            display: flex; // Используем flexbox для центрирования изображения
+            background: $task-background; 
+            border: none; 
+            cursor: pointer; 
+            border-radius: 50%;
+            width: 50px; 
+            height: 50px; 
+            display: flex; 
             justify-content: center;
             align-items: center;
 
             img {
-                width: 100%; // Ширина изображения 100% кнопки
-                height: 100%; // Высота изображения 100% кнопки
+                width: 100%; 
+                height: 100%; 
             }
+        }
+    }
+}
+
+.info-modal {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); 
+    justify-content: center;
+    align-items: center;
+    z-index: 10; 
+
+    .modal-content {
+        background-color: $background-color; // Цвет фона модального окна
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center; 
+        max-width: 400px; 
+
+        .info-gif {
+            max-width: 100%; 
+            height: auto; 
+        }
+
+        p {
+            margin-top: 10px;
+            font-size: 18px;
+            color: $text-color;
         }
     }
 }

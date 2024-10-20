@@ -14,6 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeTask = null; // Переменная для хранения активной задачи
     let taskToDelete = null; // Переменная для хранения задачи, которую нужно удалить
 
+    const gifs = [
+        '/src/assets/images/cat1.gif',
+        '/src/assets/images/cat2.gif',
+        '/src/assets/images/cat3.gif',
+        '/src/assets/images/cat4.gif',
+        '/src/assets/images/cat5.gif'
+    ];
+
     // Функция для создания кнопок
     function createSpecButtons() {
         let specButtons = document.createElement('div');
@@ -30,6 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
         infoButton.innerHTML = '<span>i</span>';
         infoButton.classList.add('task-button');
         specButtons.appendChild(infoButton);
+
+        // Получаем элементы модального окна и изображение
+        const infoModal = document.getElementById('info-modal');
+        const infoGif = document.querySelector('.info-gif');
 
         // Кнопка Редактировать
         let editButton = document.createElement('button');
@@ -97,6 +109,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     shareModal.style.display = 'none'; // Скрываем модальное окно
                 }
             });
+        });
+
+        // Обработчик нажатия на кнопку "Информация"
+        infoButton.addEventListener('click', (event) => {
+            event.stopPropagation(); // Останавливаем всплытие события
+
+            // Выбираем случайный GIF из массива
+            const randomIndex = Math.floor(Math.random() * gifs.length);
+            infoGif.src = gifs[randomIndex]; // Устанавливаем источник изображения
+
+            infoModal.style.display = 'flex'; // Показываем модальное окно
+        });
+
+        // Закрытие модального окна при нажатии вне его
+        infoModal.addEventListener('click', (event) => {
+            if (event.target === infoModal) {
+                infoModal.style.display = 'none'; // Скрываем модальное окно
+            }
         });
 
         return specButtons;
