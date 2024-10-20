@@ -218,9 +218,9 @@ body {
     .modal-content {
         padding: 20px;
         border-radius: 8px;
-        width: 90%; // Ширина модального окна, адаптивно
+        width: 90%; 
         height: auto;
-        max-width: 600px; // Максимальная ширина для больших экранов
+        max-width: 600px; 
         background-color: $background-color;
         color: $text-color;
 
@@ -239,29 +239,29 @@ body {
             overflow: hidden; // Запрет на прокрутку
 
             &:focus {
-                border-color: $primary-color; // Цвет рамки при фокусе
-                outline: none; // Убираем стандартный контур
+                border-color: $primary-color; 
+                outline: none; 
             }
         }
 
         textarea {
             width: calc(100% - 20px); 
-            height: 30vh; // Высота textarea 30% от высоты экрана
+            height: 30vh; 
             margin-right: 20px; 
             margin-bottom: 10px;
             padding: 8px;
             border: 2px solid $dark-orange; 
             border-radius: 4px;
             font-size: 14px; 
-            transition: border-color 0.3s; // Плавный переход при фокусе
+            transition: border-color 0.3s; 
             background-color: $task-background;
             color: $text-color;
-            resize: none; // Запрет на изменение размера
-            overflow: hidden; // Запрет на прокрутку
+            resize: none; 
+            overflow: hidden; 
 
             &:focus {
-                border-color: $primary-color; // Цвет рамки при фокусе
-                outline: none; // Убираем стандартный контур
+                border-color: $primary-color; 
+                outline: none; 
             }
         }
 
@@ -277,12 +277,52 @@ body {
                 padding: 10px 15px; 
                 margin: 0 2%; 
                 cursor: pointer; 
-                transition: background-color 0.3s, border-color 0.3s; // Плавные переходы
+                transition: background-color 0.3s, border-color 0.3s; 
 
                 &:hover {
                     background-color: $task-background;
-                    border-color: $primary-color; // Цвет рамки при наведении
+                    border-color: $primary-color; 
                 }
+            }
+        }
+    }
+}
+
+.share-modal {
+    display: none; // Скрываем модальное окно по умолчанию
+    position: fixed;
+    top: 0; // Задаем верхнее положение
+    left: 0;
+    width: 100%;
+    height: 100%; // Устанавливаем высоту на 100%
+    background-color: rgba(0, 0, 0, 0.7); // Затемнение фона
+    justify-content: center;
+    align-items: center;
+    z-index: 10; 
+
+    .modal-content {
+        display: flex; // Используем flexbox для выравнивания кнопок
+        flex-wrap: wrap; // Позволяем кнопкам переноситься
+        justify-content: space-around; // Равномерное распределение кнопок
+        padding: 20px;
+        border-radius: 8px;
+        background-color: $background-color; // Цвет фона модального окна
+        width: 90%; // Ширина модального окна
+        max-width: 600px; // Максимальная ширина для больших экранов
+
+        button {
+            background: none; // Убираем фон кнопок
+            border: none; // Убираем границу
+            cursor: pointer; // Указатель при наведении
+            width: 50px; // Ширина кнопки
+            height: 50px; // Высота кнопки
+            display: flex; // Используем flexbox для центрирования изображения
+            justify-content: center;
+            align-items: center;
+
+            img {
+                width: 100%; // Ширина изображения 100% кнопки
+                height: 100%; // Высота изображения 100% кнопки
             }
         }
     }

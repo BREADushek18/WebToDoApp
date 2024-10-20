@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const editModal = document.getElementById('edit-modal'); 
     const taskTitleInput = document.getElementById('edit-title'); 
     const taskDescriptionInput = document.getElementById('edit-desc'); 
+    const shareModal = document.getElementById('share-modal'); 
+    const copyButton = document.getElementById('copy-button'); 
+    const closeShareModalButton = document.getElementById('close-share-modal'); 
     let activeTask = null; // Переменная для хранения активной задачи
     let taskToDelete = null; // Переменная для хранения задачи, которую нужно удалить
 
@@ -51,6 +54,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentTask.querySelector('.task-title').innerText = newTitle.length > 28 ? newTitle.slice(0, 28) + '...' : newTitle; // Обновляем заголовок
                 currentTask.querySelector('.task-body').innerText = newDesc.length > 28 ? newDesc.slice(0, 28) + '...' : newDesc; // Обновляем описание
                 updateLocalStorage(); // Обновляем локальное хранилище
+            });
+        });
+
+        // Обработчик для кнопки "Поделиться"
+        shareButton.addEventListener('click', (event) => {
+            event.stopPropagation(); // Останавливаем всплытие события
+            const currentTask = shareButton.closest('.task');
+            const fullTitle = currentTask.dataset.fullTitle;
+            const fullDescription = currentTask.dataset.fullDesc;
+
+            // Открываем модальное окно
+            shareModal.style.display = 'flex';
+
+            // Обработчик для кнопки копирования
+            copyButton.onclick = () => {
+                const textToCopy = `Задача: ${fullTitle}\nОписание задачи: 
+                ${fullDescription}\nЗадача была создана в самом лучшем To Do приложении 
+                разработчиком BREADushek <3`;
+                navigator.clipboard.writeText(textToCopy)
+                    .then(() => {
+                        alert('Текст скопирован в буфер обмена!');
+                        shareModal.style.display = 'none'; // Закрываем модальное окно
+                    })
+                    .catch(err => {
+                        console.error('Ошибка копирования: ', err);
+                    });
+            };
+
+            // Обработчик для остальных кнопок
+            const iconButtons = document.querySelectorAll('.icon-button');
+            iconButtons.forEach(button => {
+                button.onclick = () => {
+                    // Здесь можно добавить функционал для каждой кнопки
+                    shareModal.style.display = 'none'; // Закрываем модальное окно
+                };
+            });
+
+            // Закрытие модального окна при нажатии вне его
+            shareModal.addEventListener('click', (event) => {
+                if (event.target === shareModal) {
+                    shareModal.style.display = 'none'; // Скрываем модальное окно
+                }
             });
         });
 
