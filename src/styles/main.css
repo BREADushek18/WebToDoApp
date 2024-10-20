@@ -5,45 +5,7 @@ body {
   color: #F0E3CA;
 }
 
-.new-note-container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.inputs {
-  display: flex;
-  align-items: flex-start;
-  width: 100%;
-  justify-content: center;
-  margin-bottom: 64px;
-}
-.inputs .add-inputs {
-  display: flex;
-  flex-direction: column;
-  flex: 3;
-}
-.inputs .add-inputs input {
-  margin-top: 10px;
-  padding: 10px;
-  border: 1px solid #FF8303;
-  border-radius: 5px;
-  background-color: #1F1E1B;
-  color: #F0E3CA;
-}
-.inputs .add-inputs input:focus {
-  outline: none;
-  background-color: #1B1A17;
-}
-.inputs .add-note {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-}
-.inputs .add-note .add-button {
+.add-button {
   margin-top: 10px;
   margin-left: 5px;
   width: 80px;
@@ -55,36 +17,11 @@ body {
   font-size: 36px;
   cursor: pointer;
 }
-.inputs .add-note .add-button:hover {
+.add-button:hover {
   background-color: #1F1E1B;
 }
 
-.divider {
-  height: 2px;
-  width: 128px;
-  background-color: #FF8303;
-  margin: 10px 0;
-  align-self: center;
-}
-
-.task-container {
-  width: 100%;
-}
-
-.task {
-  position: relative;
-  background-color: #1F1E1B;
-  border: 2px solid #A35709;
-  border-radius: 10px;
-  height: 48px;
-  padding: 10px;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #F0E3CA;
-}
-.task .delete-button {
+.delete-button {
   width: 40px;
   height: 40px;
   border: 2px solid #A35709;
@@ -94,13 +31,30 @@ body {
   font-size: 18px;
   cursor: pointer;
 }
-.task .delete-button:hover {
+.delete-button:hover {
   background-color: #1F1E1B;
 }
 
-#no-tasks {
-  text-align: center;
-  margin: 10px 0;
+.task-button {
+  margin: right;
+  background-color: transparent;
+  border: 2px solid #A35709;
+  color: #F0E3CA;
+  font-size: 28px;
+  cursor: pointer;
+  border-radius: 4px;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-left: 8px;
+}
+.task-button:hover {
+  background-color: #1F1E1B;
+}
+.task-button .icon {
+  width: 20px;
+  height: 20px;
 }
 
 .modal {
@@ -147,38 +101,6 @@ body {
   background-color: #1F1E1B;
 }
 
-.button-container {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  background-color: transparent;
-  margin-top: 140px;
-  position: absolute;
-  right: 10px;
-  max-width: calc(100% - 20px);
-}
-.button-container .task-button {
-  margin: right;
-  background-color: transparent;
-  border: 2px solid #A35709;
-  color: #F0E3CA;
-  font-size: 28px;
-  cursor: pointer;
-  border-radius: 4px;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  margin-left: 8px;
-}
-.button-container .task-button .task-button:hover {
-  background-color: #1F1E1B;
-}
-.button-container .task-button .icon {
-  width: 20px;
-  height: 20px;
-}
-
 .edit-modal {
   display: none;
   position: fixed;
@@ -200,27 +122,9 @@ body {
   background-color: #1B1A17;
   color: #F0E3CA;
 }
-.edit-modal .modal-content input {
-  width: calc(100% - 20px);
-  margin-right: 20px;
-  margin-bottom: 10px;
-  padding: 8px;
-  border: 2px solid #A35709;
-  border-radius: 4px;
-  font-size: 14px;
-  transition: border-color 0.3s;
-  background-color: #1F1E1B;
-  color: #F0E3CA;
-  resize: none;
-  overflow: hidden;
-}
-.edit-modal .modal-content input:focus {
-  border-color: #FF8303;
-  outline: none;
-}
+.edit-modal .modal-content input,
 .edit-modal .modal-content textarea {
   width: calc(100% - 20px);
-  height: 30vh;
   margin-right: 20px;
   margin-bottom: 10px;
   padding: 8px;
@@ -233,6 +137,7 @@ body {
   resize: none;
   overflow: hidden;
 }
+.edit-modal .modal-content input:focus,
 .edit-modal .modal-content textarea:focus {
   border-color: #FF8303;
   outline: none;
@@ -321,4 +226,85 @@ body {
   margin-top: 10px;
   font-size: 18px;
   color: #F0E3CA;
-}/*# sourceMappingURL=style.css.map */
+}
+
+.task-container {
+  width: 100%;
+}
+
+.task {
+  position: relative;
+  background-color: #1F1E1B;
+  border: 2px solid #A35709;
+  border-radius: 10px;
+  height: 48px;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #F0E3CA;
+}
+
+.new-note-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputs {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 64px;
+}
+.inputs .add-inputs {
+  display: flex;
+  flex-direction: column;
+  flex: 3;
+}
+.inputs .add-inputs input {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #FF8303;
+  border-radius: 5px;
+  background-color: #1F1E1B;
+  color: #F0E3CA;
+}
+.inputs .add-inputs input:focus {
+  outline: none;
+  background-color: #1B1A17;
+}
+.inputs .add-note {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.divider {
+  height: 2px;
+  width: 128px;
+  background-color: #FF8303;
+  margin: 10px 0;
+  align-self: center;
+}
+
+#no-tasks {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: transparent;
+  margin-top: 140px;
+  position: absolute;
+  right: 10px;
+  max-width: calc(100% - 20px);
+}/*# sourceMappingURL=main.css.map */

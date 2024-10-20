@@ -1,0 +1,21 @@
+$dark-orange: #A35709;
+$text-color: #F0E3CA;
+$task-background: #1F1E1B;
+
+.task-container {
+    width: 100%;
+}
+
+.task {
+    position: relative;
+    background-color: $task-background;
+    border: 2px solid $dark-orange;
+    border-radius: 10px;
+    height: 48px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: $text-color;
+}

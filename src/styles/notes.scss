@@ -1,0 +1,61 @@
+$primary-color: #FF8303;
+$dark-orange: #A35709;
+$background-color: #1B1A17;
+$text-color: #F0E3CA;
+$task-background: #1F1E1B;
+
+.new-note-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputs {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 64px;
+
+    .add-inputs {
+        display: flex;
+        flex-direction: column;
+        flex: 3;
+
+        input {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid $primary-color;
+            border-radius: 5px;
+            background-color: $task-background;
+            color: $text-color;
+
+            &:focus {
+                outline: none;
+                background-color: $background-color;
+            }
+        }
+    }
+
+    .add-note {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.divider {
+    height: 2px;
+    width: 128px;
+    background-color: $primary-color;
+    margin: 10px 0;
+    align-self: center;
+}
+
+#no-tasks {
+    text-align: center;
+    margin: 10px 0;
+}

@@ -1,0 +1,61 @@
+$primary-color: #FF8303;
+$dark-orange: #A35709;
+$background-color: #1B1A17;
+$text-color: #F0E3CA;
+$task-background: #1F1E1B;
+
+.add-button {
+    margin-top: 10px;
+    margin-left: 5px;
+    width: 80px;
+    height: 80px;
+    border: 2px solid $primary-color;
+    background-color: transparent;
+    color: $primary-color;
+    border-radius: 10px;
+    font-size: 36px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $task-background;
+    }
+}
+
+.delete-button {
+    width: 40px;
+    height: 40px;
+    border: 2px solid $dark-orange;
+    border-radius: 5px;
+    background-color: $background-color;
+    color: $primary-color;
+    font-size: 18px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $task-background;
+    }
+}
+
+.task-button {
+    margin: right;
+    background-color: transparent;
+    border: 2px solid $dark-orange;
+    color: $text-color;
+    font-size: 28px;
+    cursor: pointer;
+    border-radius: 4px;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-left: 8px;
+
+    &:hover {
+        background-color: $task-background;
+    }
+
+    .icon {
+        width: 20px;
+        height: 20px;
+    }
+}

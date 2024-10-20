@@ -15,11 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let taskToDelete = null; // Переменная для хранения задачи, которую нужно удалить
 
     const gifs = [
-        '/src/assets/images/cat1.gif',
-        '/src/assets/images/cat2.gif',
-        '/src/assets/images/cat3.gif',
-        '/src/assets/images/cat4.gif',
-        '/src/assets/images/cat5.gif'
+        '../assets/images/cat1.gif',
+        '../assets/images/cat2.gif',
+        '../assets/images/cat3.gif',
+        '../assets/images/cat4.gif',
+        '../assets/images/cat5.gif'
     ];
 
     // Функция для создания кнопок
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Кнопка Поделиться
         let shareButton = document.createElement('button');
-        shareButton.innerHTML = '<img src="/src/assets/icons/share.svg" class="icon">';
+        shareButton.innerHTML = '<img src="../assets/icons/share.svg" class="icon">';
         shareButton.classList.add('task-button');
         specButtons.appendChild(shareButton);
 
@@ -45,11 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Кнопка Редактировать
         let editButton = document.createElement('button');
-        editButton.innerHTML = '<img src="/src/assets/icons/edit.svg" class="icon">';
+        editButton.innerHTML = '<img src="../assets/icons/edit.svg" class="icon">';
         editButton.classList.add('task-button');
         specButtons.appendChild(editButton);
 
-        // Добавляем обработчик нажатия на кнопку "Редактировать"
+        // Обработчик нажатия на кнопку "Редактировать"
         editButton.addEventListener('click', (event) => {
             event.stopPropagation(); // Останавливаем всплытие события
             const currentTask = editButton.closest('.task'); // Получаем родительский элемент задачи
@@ -93,15 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         console.error('Ошибка копирования: ', err);
                     });
             };
-
-            // Обработчик для остальных кнопок
-            const iconButtons = document.querySelectorAll('.icon-button');
-            iconButtons.forEach(button => {
-                button.onclick = () => {
-                    // Здесь можно добавить функционал для каждой кнопки
-                    shareModal.style.display = 'none'; // Закрываем модальное окно
-                };
-            });
 
             // Закрытие модального окна при нажатии вне его
             shareModal.addEventListener('click', (event) => {

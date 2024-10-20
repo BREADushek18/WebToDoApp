@@ -1,0 +1,192 @@
+$primary-color: #FF8303;
+$dark-orange: #A35709;
+$background-color: #1B1A17;
+$text-color: #F0E3CA;
+$task-background: #1F1E1B;
+
+.modal {
+    display: none; // Скрыто по умолчанию
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 4vw;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7); // Затемнение фона
+
+    .modal-content {
+        background-color: $background-color;
+        color: $text-color;
+        padding-bottom: 2%;
+        margin: 15% auto;
+        text-align: center;
+        width: 50%;
+
+        .modal-line {
+            width: 100%;
+            height: 2px;
+            background-color: $dark-orange;
+            margin-top: -20px;
+        }
+
+        h3 {
+            margin-bottom: 5%;
+        }
+
+        button {
+            background-color: $background-color;
+            color: $text-color;
+            border: 2px solid $dark-orange;
+            border-radius: 5px;
+            padding: 2% 5%;
+            margin: 0 2%;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $task-background;
+            }
+        }
+    }
+}
+
+.edit-modal {
+    display: none; 
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+
+    .modal-content {
+        padding: 20px;
+        border-radius: 8px;
+        width: 90%;
+        height: auto;
+        max-width: 600px;
+        background-color: $background-color;
+        color: $text-color;
+
+        input,
+        textarea {
+            width: calc(100% - 20px);
+            margin-right: 20px;
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 2px solid $dark-orange;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.3s; // Плавный переход при фокусе
+            background-color: $task-background;
+            color: $text-color;
+            resize: none; // Запрет на изменение размера
+            overflow: hidden; // Запрет на прокрутку
+
+            &:focus {
+                border-color: $primary-color;
+                outline: none;
+            }
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: space-between;
+
+            button {
+                background-color: $background-color;
+                color: $text-color;
+                border: 2px solid $dark-orange;
+                border-radius: 5px;
+                padding: 10px 15px;
+                margin: 0 2%;
+                cursor: pointer;
+                transition: background-color 0.3s, border-color 0.3s;
+
+                &:hover {
+                    background-color: $task-background;
+                    border-color: $primary-color;
+                }
+            }
+        }
+    }
+}
+
+.share-modal {
+    display: none; // Скрываем модальное окно по умолчанию
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+
+    .modal-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        padding: 20px;
+        border-radius: 8px;
+        background-color: $background-color;
+        width: 90%;
+        max-width: 600px;
+
+        button {
+            background: $task-background;
+            border: none;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
+
+.info-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+
+    .modal-content {
+        background-color: $background-color; // Цвет фона модального окна
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        max-width: 400px;
+
+        .info-gif {
+            max-width: 100%;
+            height: auto;
+        }
+
+        p {
+            margin-top: 10px;
+            font-size: 18px;
+            color: $text-color;
+        }
+    }
+}

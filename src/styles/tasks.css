@@ -1,0 +1,17 @@
+.task-container {
+  width: 100%;
+}
+
+.task {
+  position: relative;
+  background-color: #1F1E1B;
+  border: 2px solid #A35709;
+  border-radius: 10px;
+  height: 48px;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #F0E3CA;
+}/*# sourceMappingURL=tasks.css.map */
