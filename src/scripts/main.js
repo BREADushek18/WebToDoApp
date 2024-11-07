@@ -5,15 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const deleteModal = document.getElementById('delete-modal');
     const confirmDeleteButton = document.getElementById('confirm-delete');
     const cancelDeleteButton = document.getElementById('cancel-delete');
-    const editModal = document.getElementById('edit-modal'); 
-    const taskTitleInput = document.getElementById('edit-title'); 
-    const taskDescriptionInput = document.getElementById('edit-desc'); 
     const shareModal = document.getElementById('share-modal'); 
     const copyButton = document.getElementById('copy-button'); 
-    const closeShareModalButton = document.getElementById('close-share-modal'); 
-    let activeTask = null; // Переменная для хранения активной задачи
-    let taskToDelete = null; // Переменная для хранения задачи, которую нужно удалить
-
+    const infoModal = document.getElementById('info-modal');
+    const infoGif = document.querySelector('.info-gif'); 
     const gifs = [
         '../assets/images/cat1.gif',
         '../assets/images/cat2.gif',
@@ -21,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
         '../assets/images/cat4.gif',
         '../assets/images/cat5.gif'
     ];
+    let activeTask = null; // Переменная для хранения активной задачи
+    let taskToDelete = null; // Переменная для хранения задачи, которую нужно удалить
 
     // Функция для создания кнопок
     function createSpecButtons() {
@@ -38,10 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
         infoButton.innerHTML = '<span>i</span>';
         infoButton.classList.add('task-button');
         specButtons.appendChild(infoButton);
-
-        // Получаем элементы модального окна и изображение
-        const infoModal = document.getElementById('info-modal');
-        const infoGif = document.querySelector('.info-gif');
 
         // Кнопка Редактировать
         let editButton = document.createElement('button');
@@ -69,83 +62,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Обработчик для кнопки "Поделиться"
-        shareButton.addEventListener('click', (event) => {
-            event.stopPropagation(); // Останавливаем всплытие события
-            const currentTask = shareButton.closest('.task');
-            const fullTitle = currentTask.dataset.fullTitle;
-            const fullDescription = currentTask.dataset.fullDesc;
-
-            // Открываем модальное окно
-            shareModal.style.display = 'flex';
-
-            // Обработчик для кнопки копирования
-            copyButton.onclick = () => {
-                const textToCopy = `Задача: ${fullTitle}\nОписание задачи: 
-                ${fullDescription}\nЗадача была создана в самом лучшем To Do приложении 
-                разработчиком BREADushek <3`;
-                navigator.clipboard.writeText(textToCopy)
-                    .then(() => {
-                        alert('Текст скопирован в буфер обмена!');
-                        shareModal.style.display = 'none'; // Закрываем модальное окно
-                    })
-                    .catch(err => {
-                        console.error('Ошибка копирования: ', err);
-                    });
-            };
-
-            // Закрытие модального окна при нажатии вне его
-            shareModal.addEventListener('click', (event) => {
-                if (event.target === shareModal) {
-                    shareModal.style.display = 'none'; // Скрываем модальное окно
-                }
-            });
-        });
-
-        // Обработчик нажатия на кнопку "Информация"
-        infoButton.addEventListener('click', (event) => {
-            event.stopPropagation(); // Останавливаем всплытие события
-
-            // Выбираем случайный GIF из массива
-            const randomIndex = Math.floor(Math.random() * gifs.length);
-            infoGif.src = gifs[randomIndex]; // Устанавливаем источник изображения
-
-            infoModal.style.display = 'flex'; // Показываем модальное окно
-        });
-
-        // Закрытие модального окна при нажатии вне его
-        infoModal.addEventListener('click', (event) => {
-            if (event.target === infoModal) {
-                infoModal.style.display = 'none'; // Скрываем модальное окно
-            }
-        });
+        // Настройка модальных окон
+        setupShareModal(shareButton, shareModal, copyButton, '', '');
+        setupInfoModal(infoButton, infoModal, infoGif, gifs);
 
         return specButtons;
     }
-
-    function showEditModal(fullTitle, fullDesc, onSave) {
-        taskTitleInput.value = fullTitle; // Устанавливаем полный заголовок
-        taskDescriptionInput.value = fullDesc; // Устанавливаем полное описание
-    
-        editModal.style.display = 'flex'; // Показываем модальное окно
-    
-        editModal.addEventListener('click', function(event) {
-            if (event.target === editModal) {
-                editModal.style.display = 'none';
-            }
-        });
-    
-        document.getElementById('save-edit').onclick = () => {
-            const newTitle = taskTitleInput.value;
-            const newDesc = taskDescriptionInput.value;
-            onSave(newTitle, newDesc); // Вызываем обновление задачи
-            editModal.style.display = 'none'; // Скрываем модальное окно
-        };
-    
-        document.getElementById('cancel-edit').onclick = () => {
-            editModal.style.display = 'none'; // Скрываем модальное окно
-        };
-    }          
 
     // Загрузка задач из локального хранилища
     const loadTasks = () => {
@@ -254,17 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
             noTasksMessage.style.display = 'block';
             document.querySelectorAll('.divider').forEach(div => div.style.display = 'block');
         }
-    };
-
-    // Обновление локального хранилища
-    const updateLocalStorage = () => {
-        const tasks = [];
-        document.querySelectorAll('.task').forEach(task => {
-            const title = task.dataset.fullTitle; // Получаем полное название из атрибута
-            const body = task.dataset.fullDesc; // Получаем полное описание из атрибута
-            tasks.push({ title, body });
-        });
-        localStorage.setItem('tasks', JSON.stringify(tasks));
     };
 
     // Добавление новой задачи
