@@ -3,11 +3,9 @@ function showEditModal(fullTitle, fullDesc, onSave) {
     const taskDescriptionInput = document.getElementById('edit-desc');
     const editModal = document.getElementById('edit-modal');
 
-    taskTitleInput.value = fullTitle; // Устанавливаем полный заголовок
-    taskDescriptionInput.value = fullDesc; // Устанавливаем полное описание
-
-    editModal.style.display = 'flex'; // Показываем модальное окно
-
+    taskTitleInput.value = fullTitle; 
+    taskDescriptionInput.value = fullDesc; 
+    editModal.style.display = 'flex'; 
     editModal.addEventListener('click', function(event) {
         if (event.target === editModal) {
             editModal.style.display = 'none';
@@ -17,23 +15,21 @@ function showEditModal(fullTitle, fullDesc, onSave) {
     document.getElementById('save-edit').onclick = () => {
         const newTitle = taskTitleInput.value;
         const newDesc = taskDescriptionInput.value;
-        onSave(newTitle, newDesc); // Вызываем обновление задачи
-        editModal.style.display = 'none'; // Скрываем модальное окно
+        onSave(newTitle, newDesc); 
+        editModal.style.display = 'none'; 
     };
 
     document.getElementById('cancel-edit').onclick = () => {
-        editModal.style.display = 'none'; // Скрываем модальное окно
+        editModal.style.display = 'none'; 
     };
 }
 
 function setupShareModal(shareButton, shareModal, copyButton, fullTitle, fullDescription) {
     shareButton.addEventListener('click', (event) => {
-        event.stopPropagation(); // Останавливаем всплытие события
+        event.stopPropagation(); 
 
-        // Открываем модальное окно
         shareModal.style.display = 'flex';
 
-        // Обработчик для кнопки копирования
         copyButton.onclick = () => {
             const textToCopy = `Задача: ${fullTitle}\nОписание задачи: 
             ${fullDescription}\nЗадача была создана в самом лучшем To Do приложении 
@@ -41,17 +37,16 @@ function setupShareModal(shareButton, shareModal, copyButton, fullTitle, fullDes
             navigator.clipboard.writeText(textToCopy)
                 .then(() => {
                     alert('Текст скопирован в буфер обмена!');
-                    shareModal.style.display = 'none'; // Закрываем модальное окно
+                    shareModal.style.display = 'none'; 
                 })
                 .catch(err => {
                     console.error('Ошибка копирования: ', err);
                 });
         };
 
-        // Закрытие модального окна при нажатии вне его
         shareModal.addEventListener('click', (event) => {
             if (event.target === shareModal) {
-                shareModal.style.display = 'none'; // Скрываем модальное окно
+                shareModal.style.display = 'none'; 
             }
         });
     });
@@ -59,19 +54,17 @@ function setupShareModal(shareButton, shareModal, copyButton, fullTitle, fullDes
 
 function setupInfoModal(infoButton, infoModal, infoGif, gifs) {
     infoButton.addEventListener('click', (event) => {
-        event.stopPropagation(); // Останавливаем всплытие события
+        event.stopPropagation(); 
 
-        // Выбираем случайный GIF из массива
         const randomIndex = Math.floor(Math.random() * gifs.length);
-        infoGif.src = gifs[randomIndex]; // Устанавливаем источник изображения
+        infoGif.src = gifs[randomIndex]; 
 
-        infoModal.style.display = 'flex'; // Показываем модальное окно
+        infoModal.style.display = 'flex'; 
     });
 
-    // Закрытие модального окна при нажатии вне его
     infoModal.addEventListener('click', (event) => {
         if (event.target === infoModal) {
-            infoModal.style.display = 'none'; // Скрываем модальное окно
+            infoModal.style.display = 'none'; 
         }
     });
 }

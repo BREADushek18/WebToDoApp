@@ -6,8 +6,8 @@ function loadTasks(taskContainer, createTaskElement) {
 function updateLocalStorage() {
     const tasks = [];
     document.querySelectorAll('.task').forEach(task => {
-        const title = task.dataset.fullTitle; // Получаем полное название из атрибута
-        const body = task.dataset.fullDesc; // Получаем полное описание из атрибута
+        const title = task.dataset.fullTitle; 
+        const body = task.dataset.fullDesc; 
         tasks.push({ title, body });
     });
     localStorage.setItem('tasks', JSON.stringify(tasks));

@@ -16,81 +16,68 @@ document.addEventListener('DOMContentLoaded', () => {
         '../assets/images/cat4.gif',
         '../assets/images/cat5.gif'
     ];
-    let activeTask = null; // Переменная для хранения активной задачи
-    let taskToDelete = null; // Переменная для хранения задачи, которую нужно удалить
+    let activeTask = null; 
+    let taskToDelete = null; 
 
-    // Функция для создания кнопок
     function createSpecButtons() {
         let specButtons = document.createElement('div');
         specButtons.classList.add('button-container');
 
-        // Кнопка Поделиться
         let shareButton = document.createElement('button');
         shareButton.innerHTML = '<img src="../assets/icons/share.svg" class="icon">';
         shareButton.classList.add('task-button');
         specButtons.appendChild(shareButton);
 
-        // Кнопка Информация
         let infoButton = document.createElement('button');
         infoButton.innerHTML = '<span>i</span>';
         infoButton.classList.add('task-button');
         specButtons.appendChild(infoButton);
 
-        // Кнопка Редактировать
         let editButton = document.createElement('button');
         editButton.innerHTML = '<img src="../assets/icons/edit.svg" class="icon">';
         editButton.classList.add('task-button');
         specButtons.appendChild(editButton);
 
-        // Обработчик нажатия на кнопку "Редактировать"
         editButton.addEventListener('click', (event) => {
-            event.stopPropagation(); // Останавливаем всплытие события
-            const currentTask = editButton.closest('.task'); // Получаем родительский элемент задачи
-            const fullTitle = currentTask.dataset.fullTitle; // Получаем полное название из атрибута
-            const fullDescription = currentTask.dataset.fullDesc; // Получаем полное описание из атрибута
+            event.stopPropagation(); 
+            const currentTask = editButton.closest('.task'); 
+            const fullTitle = currentTask.dataset.fullTitle; 
+            const fullDescription = currentTask.dataset.fullDesc; 
 
-            // Передаем полные значения в модальное окно
             showEditModal(fullTitle, fullDescription, (newTitle, newDesc) => {
-                // Обновляем полные значения в атрибутах
                 currentTask.dataset.fullTitle = newTitle;
                 currentTask.dataset.fullDesc = newDesc;
 
-                // Обновляем заголовок и описание в задаче
                 currentTask.querySelector('.task-title').innerText = newTitle.length > 28 ? newTitle.slice(0, 28) + '...' : newTitle; // Обновляем заголовок
                 currentTask.querySelector('.task-body').innerText = newDesc.length > 28 ? newDesc.slice(0, 28) + '...' : newDesc; // Обновляем описание
-                updateLocalStorage(); // Обновляем локальное хранилище
+                updateLocalStorage(); 
             });
         });
 
-        // Настройка модальных окон
         setupShareModal(shareButton, shareModal, copyButton, '', '');
         setupInfoModal(infoButton, infoModal, infoGif, gifs);
 
         return specButtons;
     }
 
-    // Загрузка задач из локального хранилища
     const loadTasks = () => {
         const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
         tasks.forEach(task => createTaskElement(task.title, task.body));
     };
 
-    // Создание элемента задачи
     const createTaskElement = (fullTitle, fullBody) => {
         const taskDiv = document.createElement('div');
         taskDiv.className = 'task';
-        taskDiv.dataset.fullTitle = fullTitle; // Сохраняем полное название
-        taskDiv.dataset.fullDesc = fullBody; // Сохраняем полное описание
+        taskDiv.dataset.fullTitle = fullTitle; 
+        taskDiv.dataset.fullDesc = fullBody; 
 
         const taskContent = document.createElement('div');
 
-        // Ограничиваем заголовок до 28 символов для отображения
         const truncatedTitle = fullTitle.length > 28 ? fullTitle.slice(0, 28) + '...' : fullTitle;
         const titleElement = document.createElement('strong');
         titleElement.className = 'task-title';
         titleElement.textContent = truncatedTitle;
 
-        // Ограничиваем описание до 28 символов для отображения
         const truncatedBody = fullBody.length > 28 ? fullBody.slice(0, 28) + '...' : fullBody;
         const bodyElement = document.createElement('span');
         bodyElement.className = 'task-body';
@@ -101,15 +88,14 @@ document.addEventListener('DOMContentLoaded', () => {
         taskContent.appendChild(bodyElement);
 
         const deleteButton = document.createElement('button');
-        deleteButton.textContent = '×'; // Используем textContent
+        deleteButton.textContent = '×'; 
         deleteButton.className = 'delete-button';
         deleteButton.onclick = (e) => {
-            e.stopPropagation(); // Останавливаем всплытие события
-            taskToDelete = taskDiv; // Сохраняем задачу для удаления
-            deleteModal.style.display = 'block'; // Показываем модальное окно
+            e.stopPropagation(); 
+            taskToDelete = taskDiv; 
+            deleteModal.style.display = 'block'; 
         };
 
-        // Создаем контейнер для кнопок
         const buttonContainer = createSpecButtons();
         buttonContainer.style.display = 'none';
 
@@ -118,15 +104,13 @@ document.addEventListener('DOMContentLoaded', () => {
         taskDiv.appendChild(buttonContainer);
         taskContainer.prepend(taskDiv);
 
-        // Логика показа кнопок
         taskDiv.onclick = (event) => {
             if (event.target.className !== 'delete-button') {
                 const buttonsVisible = buttonContainer.style.display === 'block';
 
-                // Скрываем кнопки, если они уже видимы
                 if (buttonsVisible) {
                     buttonContainer.style.display = 'none';
-                    activeTask = null; // Убираем активную задачу
+                    activeTask = null; 
                     adjustTaskMargins(taskDiv, 0);
                 } else {
                     if (activeTask) {
@@ -134,42 +118,38 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (previousButtonContainer) {
                             previousButtonContainer.style.display = 'none';
                         }
-                        adjustTaskMargins(activeTask, 0); // Убираем отступ у предыдущей задачи
+                        adjustTaskMargins(activeTask, 0); 
                     }
 
-                    // Отображаем кнопки под текущей задачей
                     buttonContainer.style.display = 'block';
-                    activeTask = taskDiv; // Устанавливаем текущую задачу как активную
-                    adjustTaskMargins(taskDiv, 70); // Устанавливаем отступ для активной задачи
+                    activeTask = taskDiv; 
+                    adjustTaskMargins(taskDiv, 70); 
                 }
             }
         };
-
         checkNoTasks();
     };
 
-    // Функция для настройки отступов между задачами
     function adjustTaskMargins(currentTask, additionalMargin) {
         const tasks = document.querySelectorAll(".task");
         let currentTaskFound = false;
 
         tasks.forEach(task => {
             if (currentTaskFound) {
-                task.style.marginTop = `${additionalMargin}px`; // Устанавливаем отступ только для следующей задачи
-                currentTaskFound = false; // Прекращаем поиск после первой найденной задачи
+                task.style.marginTop = `${additionalMargin}px`; 
+                currentTaskFound = false; 
             } else {
-                task.style.marginTop = '2px'; // Возвращаем стандартный отступ для всех остальных
+                task.style.marginTop = '2px'; 
             }
 
             if (task === currentTask) {
-                currentTaskFound = true; // Найдена активная задача
+                currentTaskFound = true; 
             }
         });
     }
 
-    // Проверка наличия задач
-    const checkNoTasks = () => {
-        if (taskContainer.children.length > 0) {
+    const checkNoTasks = (tasks) => {
+        if (tasks.length > 0) {
             noTasksMessage.style.display = 'none';
             document.querySelectorAll('.divider').forEach(div => div.style.display = 'none');
         } else {
@@ -178,7 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Добавление новой задачи
     addNoteButton.addEventListener('click', () => {
         const titleInput = document.getElementById('title');
         const aboutInput = document.getElementById('about');
@@ -188,27 +167,27 @@ document.addEventListener('DOMContentLoaded', () => {
             titleInput.value = '';
             aboutInput.value = '';
             updateLocalStorage();
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            checkNoTasks(tasks);
         }
     });
 
-    // Подтверждение удаления
     confirmDeleteButton.addEventListener('click', () => {
         if (taskToDelete) {
             taskContainer.removeChild(taskToDelete);
             updateLocalStorage();
-            checkNoTasks();
-            taskToDelete = null; // Сбрасываем переменную
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            checkNoTasks(tasks);
+            taskToDelete = null; 
         }
-        deleteModal.style.display = 'none'; // Скрываем модальное окно
+        deleteModal.style.display = 'none'; 
     });
 
-    // Отмена удаления
     cancelDeleteButton.addEventListener('click', () => {
-        deleteModal.style.display = 'none'; // Скрываем модальное окно
-        taskToDelete = null; // Сбрасываем переменную
+        deleteModal.style.display = 'none'; 
+        taskToDelete = null; 
     });
 
-    // Загрузка задач при загрузке страницы
     loadTasks();
     checkNoTasks();
 });
